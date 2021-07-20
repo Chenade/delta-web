@@ -1,0 +1,323 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Bookkeeping</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/jquery.growl.css" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/datetimepicker/datetimepicker.min.css">
+    <link rel="stylesheet" href="assets/dataTables/jquery.dataTables.min.css">
+
+</head>
+
+<body>
+<div w3-include-html="./includes/navbar.html"></div>
+<main role="main">            
+
+    <div class="container">
+        <H3 style="margin: 2.5em  0 0 0;">事件通報</H3>
+        <hr>
+
+        <div class="row input-box">
+            <div class="col-5 col-sm-3">
+                <ul class="nav nav-tabs flex-column" style="border: solid #bbb 1px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#now">突發狀況</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#schedule">事件排程</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#manage">事件管理</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-7 col-sm-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="now" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
+                                突發狀況
+                            </div>
+                            <div class="card-body">
+                                <form onsubmit="return false;"  id="now">
+                                    <div class="row input-box">
+                                        <label class="col-form-label">現在時間 : <span class="col-form-label time_now" data-unix="1" id="Etime"></span></label>
+                                    </div>
+                                    <div class="row input-box">
+                                        <label class="col-form-label">事件類型 :</label>
+                                        <select class="selectpicker form-control" id="Etype">
+                                            <option value="0">車禍</option>
+                                            <option value="1">施工</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="row input-box">
+                                        <label class="col-form-label">縣市 :</label>
+                                        <select class="selectpicker form-control" id="Ecity">
+                                            <option value="taipei">Taipei</option>
+                                            <option value="new_taipei">New Taipei</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="input-box">
+                                        <div class="row">
+                                            <div class="form-group mb-0">
+                                                <label class="col-form-label">位置訊息:</label>
+                                                <div class="d-flex">
+                                                    <label class="custom-control overflow-checkbox">
+                                                        <input type="radio" class="overflow-control-input" name="EaddressType" value="address" checked>
+                                                        <span class="overflow-control-indicator">地址</span>
+                                                    </label>
+                                                    <label class="custom-control overflow-checkbox">
+                                                        <input type="radio" class="overflow-control-input" name="EaddressType" value="cord">
+                                                        <span class="overflow-control-indicator">座標</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <div class="row" id="Eaddress" style="padding: 0 0 0 1em;">
+                                            <!-- <label class="col-form-label">事發地點 :</label> -->
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="place" placeholder="請輸入完整地址">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-secondary input-group-text" id="Elocation"><i class="fas fa-location-arrow"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>  
+    
+                                        <div id="Ecord" style="display: none;">
+                                            <div class="d-flex justify-content-around">
+                                                <input type="text" class="form-control" id="Elong" placeholder="經度">
+                                                <input type="text" class="form-control" id="Elat" placeholder="緯度">
+                                            </div>  
+                                        </div>
+                                    </div>  
+
+                                    <div class="row input-box">
+                                        <div class="form-group mb-0">
+                                            <label class="col-form-label">影響車道(可複選):</label>
+                                            <div class="d-flex flex-wrap">
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Eeffect" data-id="1">
+                                                    <span class="overflow-control-indicator">雙向</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Eeffect" data-id="2">
+                                                    <span class="overflow-control-indicator">單向</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Eeffect" data-id="3">
+                                                    <span class="overflow-control-indicator">內1車道</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Eeffect" data-id="4">
+                                                    <span class="overflow-control-indicator">內2車道</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Eeffect" data-id="5">
+                                                    <span class="overflow-control-indicator">中線道</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Eeffect" data-id="6">
+                                                    <span class="overflow-control-indicator">外線道</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Eeffect" data-id="7">
+                                                    <span class="overflow-control-indicator">路肩</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row input-box">
+                                        <label class="col-form-label">建議 :</label>
+                                        <select class="selectpicker form-control" data-type="string" id="Esuggestion">
+                                            <option value="1">提前改道</option>
+                                            <option value="2">注意安全</option>
+                                        </select>
+                                    </div>
+                                    <hr>
+                                    <div class="row input-box">
+                                        <button class="btn btn-warning w-100" id="Esubmit">送出</button>
+                                    </div>
+            
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="tab-pane fade show" id="schedule" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
+                                事件排程
+                            </div>
+                            <div class="card-body">
+                                <form onsubmit="return false;"  id="schedule">
+                                    <div class="row input-box">
+                                        <label class="col-form-label">事件時間 :</label>
+                                        <input type="text" class="form-control form_datetime" name="start_date" id="Stime" placeholder="yyyy-mm-dd HH:mm:ss">
+                                    </div>
+                                    <div class="row input-box">
+                                        <label class="col-form-label">事件類型 :</label>
+                                        <select class="selectpicker form-control" data-type="string" id="Stype">
+                                            <!-- <option value="0">車禍</option> -->
+                                            <option value="2">施工</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="row input-box">
+                                        <label class="col-form-label">縣市 :</label>
+                                        <select class="selectpicker form-control" id="Scity">
+                                            <option value="taipei">Taipei</option>
+                                            <option value="new_taipei">New Taipei</option>
+                                        </select>
+                                    </div>
+               
+                                    
+                                    <div class="input-box">
+                                        <div class="row">
+                                            <div class="form-group mb-0">
+                                                <label class="col-form-label">位置訊息:</label>
+                                                <div class="d-flex">
+                                                    <label class="custom-control overflow-checkbox">
+                                                        <input type="radio" class="overflow-control-input" name="SaddressType" value="address" checked>
+                                                        <span class="overflow-control-indicator">地址</span>
+                                                    </label>
+                                                    <label class="custom-control overflow-checkbox">
+                                                        <input type="radio" class="overflow-control-input" name="SaddressType" value="cord">
+                                                        <span class="overflow-control-indicator">座標</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <div class="row" id="Saddress" style="padding: 0 0 0 1em;">
+                                            <!-- <label class="col-form-label">事發地點 :</label> -->
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="place" placeholder="請輸入完整地址">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-secondary input-group-text" id="location"><i class="fas fa-location-arrow"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>  
+    
+                                        <div id="Scord" style="display: none;">
+                                            <div class="d-flex justify-content-around">
+                                                <input type="text" class="form-control" id="Slong" placeholder="經度">
+                                                <input type="text" class="form-control" id="Slat" placeholder="緯度">
+                                            </div>  
+                                        </div>
+                                    </div>  
+
+                                    <div class="row input-box">
+                                        <div class="form-group mb-0">
+                                            <label class="col-form-label">影響車道(可複選):</label>
+                                            <div class="d-flex flex-wrap">
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Seffect" data-id="1">
+                                                    <span class="overflow-control-indicator">雙向</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Seffect" data-id="2">
+                                                    <span class="overflow-control-indicator">單向</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Seffect" data-id="3">
+                                                    <span class="overflow-control-indicator">內1車道</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Seffect" data-id="4">
+                                                    <span class="overflow-control-indicator">內2車道</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Seffect" data-id="5">
+                                                    <span class="overflow-control-indicator">中線道</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Seffect" data-id="6">
+                                                    <span class="overflow-control-indicator">外線道</span>
+                                                </label>
+                                                <label class="custom-control overflow-checkbox">
+                                                    <input type="checkbox" class="overflow-control-input Seffect" data-id="7">
+                                                    <span class="overflow-control-indicator">路肩</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row input-box">
+                                        <label class="col-form-label">建議 :</label>
+                                        <select class="selectpicker form-control" data-type="string" id="SSuggestion">
+                                            <option value="1">提前改道</option>
+                                            <option value="2">注意安全</option>
+                                        </select>
+                                    </div>
+                                    <hr>
+                                    <div class="row input-box">
+                                        <button class="btn btn-warning w-100" id="SSubmit">送出</button>
+                                    </div>
+            
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="tab-pane fade show" id="manage" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
+                                事件管理
+                            </div>
+                            <div class="card-body">
+                                <div id="selfEmpty">
+                                    <h3>目前尚無事件</h3>
+                                </div>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-hover"  id="selfEvent">
+                                        <thead>
+                                            <tr class="">
+                                                <th class="col-10">事件資訊</th>
+                                                <th class="col-3">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>BODY</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</main>
+<div w3-include-html="./includes/footer.html"></div>
+
+</body>
+</html>
+
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
+    <script src="./assets/js/jquery-3.3.1.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/chart.min.js"></script>
+    <script src="./assets/js/jquery.growl.js"></script>
+    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/datetimepicker/moment.min.js"></script>
+    <script src="assets/datetimepicker/datetimepicker.min.js"></script>
+    <script src="./assets/js/w3.min.js"></script>
+    <script src="./assets/dataTables/jquery.dataTables.min.js"></script>
+
+
+    <script src="./static/js/general.js"></script>
+    <script src="./static/js/notify.js"></script>

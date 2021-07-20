@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Bookkeeping</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/jquery.growl.css" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/datetimepicker/datetimepicker.min.css">
+
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
+    <script src="./assets/js/jquery-3.3.1.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/chart.min.js"></script>
+    <script src="./assets/js/jquery.growl.js"></script>
+    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/datetimepicker/moment.min.js"></script>
+    <script src="assets/datetimepicker/datetimepicker.min.js"></script>
+</head>
+
+
+<body>
+<div w3-include-html="./includes/navbar.html"></div>
+<main role="main">          
+
+    <div class="container">
+        <H3 style="margin: 2.5em  0 0 0;">歷史查詢</H3>
+        <hr>  
+
+        <div class="form-group">
+            <label class="overflow-checkbox">
+                <input type="checkbox" class="overflow-control-input" id="condition_location">
+                <span class="overflow-control-indicator"></span>
+                <span class="">位置訊息&emsp;</span>
+            </label>
+
+            <div id="location_row" style="display: none;">
+            
+                <!-- <label class="col-form-label" for="conditions">位置訊息:</label> -->
+                <div class="d-flex">
+                    <label class="custom-control overflow-checkbox">
+                        <input type="radio" class="overflow-control-input" name="addressType" value="address" checked>
+                        <span class="overflow-control-indicator">地址</span>
+                    </label>
+                    <label class="custom-control overflow-checkbox">
+                        <input type="radio" class="overflow-control-input" name="addressType" value="cord">
+                        <span class="overflow-control-indicator">座標</span>
+                    </label>
+                </div>
+
+                <div class="row" id="address" style="padding: 0 0 0 2em;">
+                    <!-- <label class="col-form-label">事發地點 :</label> -->
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="place" placeholder="請輸入完整地址">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary input-group-text" id="location"><i class="fas fa-location-arrow"></i></button>
+                        </div>
+                    </div>
+                </div>  
+
+                <div id="cord" style="display: none;padding: 0 0 0 2em;">
+                    <div class="d-flex justify-content-around">
+                        <input type="text" class="form-control" id="long" placeholder="經度">
+                        <input type="text" class="form-control" id="lat" placeholder="緯度">
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="overflow-checkbox">
+                <input type="checkbox" class="overflow-control-input" id="condition_time" checked>
+                <span class="overflow-control-indicator"></span>
+                <span class="">時間&emsp;</span>
+            </label>
+
+            <div id="time_row" style="position: relative;">
+                <input type="text" class="form-control form_datetime" name="start_date" id="start_date" placeholder="yyyy-mm-dd HH:mm:ss">
+            </div>
+
+
+        </div>
+
+        <!-- <div class="form-group" id="dbName_row">
+            <label for="select_dbName" class="col-form-label">{{trans('ai.name')}}:</label>
+            <input class="form-control" id="select_dbName" placeholder="Cloud">
+        </div> --> 
+        
+        <div class="form-group" id="dbWanted_row" style="display: none">
+            <label for="select_dbWanted" class="col-form-label">時間:</label>
+            <select class="selectpicker show-tick form-control" data-live-search="true" id="select_dbWanted" data-size="5" multiple></select>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" id="dbSearchBtn" data-loading-text="<span class='spinner-grow spinner-grow-sm'></span>">查詢</button>
+        </div>
+        <hr>
+
+        
+
+    </div>
+
+</main>
+<div w3-include-html="./includes/footer.html"></div>
+
+</body>
+</html>
+
+<script src="./assets/js/w3.min.js"></script>
+<script>w3.includeHTML();</script>
+
+<script>
+    $('.form_datetime').datetimepicker({
+        format:"YYYY-MM-DD HH:mm:ss",
+    });
+    
+    $('[id^=condition_]*').on('click', function () {
+        var checked = $(this).prop('checked'), target = $(this).attr('id').split('_')[1];
+        checked ? $('#' + target + '_row').show() : $('#' + target + '_row').hide();
+    });
+
+    
+    $('input[type=radio][name=addressType]').change(function() {
+        if ($(this).val() == 'address') 
+            $('#cord').css('display', 'none');
+        else
+            $('#address').css('display', 'none');
+        
+        $('#'+$(this).val()).css('display','block');
+    });
+
+
+</script>

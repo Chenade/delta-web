@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model device {
+  no           Int    @id @default(autoincrement())
+  uuid         String @unique @db.VarChar(50)
+  memberId     String @db.VarChar(50)
+  licensePlate String @db.VarChar(10)
+  type         String @db.VarChar(15)
+  del          Int    @default(0)
+}
+
+model event {
+  no         Int    @id @default(autoincrement())
+  memberId   String @db.VarChar(50)
+  city       String @db.VarChar(20)
+  location   String @db.VarChar(50)
+  time       Int
+  type       Int    @default(1)
+  effectLane String @db.VarChar(50)
+  suggestion String @db.Text
+  done       Int    @default(0)
+  timestamp  Int
+}
+
+model member {
+  no               Int    @id @default(autoincrement())
+  uid              String @unique @db.VarChar(50)
+  account          String @db.VarChar(50)
+  password         String @db.VarChar(50)
+  username         String @db.VarChar(50)
+  authority        Int    @default(1)
+  device           Int    @default(0)
+  remainCount      Int    @default(4)
+  emergencyId      String @db.VarChar(20)
+  emergencyName    String @db.VarChar(15)
+  emergencyContact String @db.VarChar(50)
+}
+
+model video {
+  id          Int    @id @default(autoincrement())
+  memberId    String @db.VarChar(50)
+  deviceId    String @db.VarChar(50)
+  videoFile   String @db.VarChar(150)
+  location    String @db.VarChar(50)
+  gpsFile     String @db.VarChar(150)
+  start       Int
+  duration    Int
+  accessCount Int    @default(0)
+}
+
+model videoshare {
+  no         Int    @id @default(autoincrement())
+  vid        Int
+  owner      String @db.VarChar(50)
+  user       String @db.VarChar(50)
+  authorize  Int    @default(0)
+  expireDate Int
+}
+
+model member_profile {
+  no       Int    @id @default(autoincrement())
+  uid      String @unique @db.VarChar(20)
+  realname String @db.Text
+  tel      String @db.VarChar(15)
+  mobile   String @db.VarChar(15)
+  email    String @db.VarChar(50)
+}
+
+model car {
+  no           Int    @id @default(autoincrement())
+  licensePlate String @db.VarChar(10)
+  memberId     String @db.VarChar(20)
+  tag          String @db.Text
+}

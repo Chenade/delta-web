@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Bookkeeping</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/jquery.growl.css" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+
+</head>
+
+<body>
+<div w3-include-html="./includes/navbar.html"></div>
+<main role="main">
+
+    <div class="container">
+        <H3 style="margin: 2.5em  0 0 0;">會員專區</H3>
+        <hr>  
+
+        <div class="member-box">
+            <div class="d-flex justify-content-between">
+                <h5>個人資料</h5>
+                <button class="btn btn-success" id="editUser">編輯</button>
+            </div>
+            <hr>
+
+            <div class="d-flex flex-wrap">
+
+                <div class="col-12 col-lg-6">
+                    <table class="table table-hover">
+                        <tr><th>帳號</th><td id="uid"></td></tr>
+                        <tr><th>Email</th><td id="account"></td></tr>
+                        <tr><th>暱稱</th><td id="username"></td></tr>
+                        <tr><th>姓名</th><td id="realname"></td></tr>
+                        <tr><th>手機號碼</th><td id="mobile"></td></tr>
+                        <tr><th>市內電話</th><td id="tel"></td></tr>
+                        <tr><th>備用 Email</th><td id="email"></td></tr>
+                    </table>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                    <table class="table table-hover">
+                        <tr><th colspan="2" class="text-center">緊急聯絡人</th></tr>
+                        <tr><th>名稱</th><td id="emergencyName"></td></tr>
+                        <tr><th>聯絡方式</th><td id="emergencyContact"></td></tr>
+                        <tr><th colspan="2" class="text-center">授權協助</th></tr>
+                        <tr><th>協助次數</th><td id="help"></td></tr>
+                        <tr><th>本月可申請次數</th><td id="remainCount"></td></tr>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="d-flex">
+            <div class="col-12 col-sm-6" style="padding-left:0;">
+                <div class="member-box">
+                    <h5>設備清單</h5><hr>
+                    <div id="deviceList"></div>
+                    <button class="btn btn-success" id="addDevice">新增設備</button>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6" style="padding-right:0;">
+                <div class="member-box">
+                    <h5>事件管理</h5><hr>
+                    <div id="eventList"></div>
+                    <br><button class="btn btn-success" onclick=location.href="./notify.html">新增事件</button>
+                    <div id="eventEmpty">
+                        <h6>目前尚無事件</h6>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        
+
+    </div>
+
+</main>
+
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="userModalTitle">編輯會員資料</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body d-flex flex-wrap">
+
+            <ul class="nav nav-tabs col-12">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#info">個人資訊</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#emergency">緊急聯絡人</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#security">安全性</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="info">
+                    <div class="overflow-auto">
+                        <div class="d-flex flex-wrap">
+                            <div class="col-12">
+                                <label for="link" class="col-form-label">使用者暱稱: <span style="color: red;">*必填</span></label> <br>
+                                <input class="form-control"  type="text" name="username" id="edit_username">
+                            </div>
+            
+                            <div class="col-12">
+                                <label for="link" class="col-form-label">真實姓名: <span style="color: red;">*必填</span></label> <br>
+                                <input class="form-control"  type="text" name="realname" id="edit_realname">
+                            </div>
+            
+                            <div class="col-12">
+                                <label for="link" class="col-form-label">手機號碼: <span style="color: red;">*必填</span></label> <br>
+                                <input class="form-control"  type="text" name="mobile" id="edit_mobile">
+                            </div>
+            
+                            <div class="col-12">
+                                <label for="link" class="col-form-label">市內電話:</label> <br>
+                                <input class="form-control"  type="text" name="tel" id="edit_tel">
+                            </div>
+            
+                            <div class="col-12">
+                                <label for="link" class="col-form-label">備用電子郵件:</label> <br>
+                                <input class="form-control"  type="text" name="email" id="edit_email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="emergency">
+                    <div class="overflow-auto">
+                        <div class="d-flex flex-wrap">
+
+                            <div class="col-12">
+                                <label for="link" class="col-form-label">緊急聯絡人帳戶ID:</label> <br>
+                                <div class="input-group">
+                                    <input class="form-control"  type="text" name="emergencyId" id="edit_emergencyId">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary" id="emergencySearch">查詢</button>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="col-12 col-sm-6">
+                                <label for="link" class="col-form-label">緊急聯絡人姓名: <span style="color: red;">*必填</span></label> <br>
+                                <input class="form-control"  type="text" name="emergencyName" id="edit_emergencyName">
+                            </div>
+            
+                            <div class="col-12 col-sm-6">
+                                <label for="link" class="col-form-label">緊急聯絡人聯絡電話: <span style="color: red;">*必填</span></label> <br>
+                                <input class="form-control"  type="text" name="emergencyContact" id="edit_emergencyContact">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="security">
+                    <div class="overflow-auto">
+                        <div class="d-flex flex-wrap">
+                            <div class="col-12">
+                                <label for="link" class="col-form-label">密碼: <span style="color: red;">*必填</span></label> <br>
+                                <input class="form-control"  type="password" name="password" id="edit_password">
+                            </div>
+            
+                            <div class="col-12">
+                                <label for="link" class="col-form-label">密碼確認: <span style="color: red;">*必填</span></label> <br>
+                                <input class="form-control"  type="password" name="password2" id="edit_password2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" id="UserSave">儲存</button>
+        </div>
+        </div>
+    </div>
+</div> 
+
+<div class="modal fade" id="deviceModal" tabindex="-1" role="dialog" aria-labelledby="deviceModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="deviceModalTitle">新增設備</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body d-flex flex-wrap">
+            <div id="step1">
+                <div class=" d-flex flex-wrap">
+                    <div class="col-12">
+                        <label for="link" class="col-form-label">設備UUID: <span style="color: red;">*必填</span></label> <br>
+                        <input class="form-control" type="text" id="uuid">
+                    </div>
+    
+                    <div class="col-12">
+                        <label for="link" class="col-form-label">車牌號碼: <span style="color: red;">*必填</span></label> <br>
+                        <input class="form-control"  type="text" id="licensePlate">
+                    </div>
+    
+                    <div class="col-12">
+                        <label for="link" class="col-form-label">類型: <span style="color: red;">*必填</span></label> <br>
+                        <select class="selectpicker form-control" id="type">
+                            <option value="front">Front</option>
+                            <option value="back">Back</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="motorcycle">Motorcycle</option>
+                        </select>
+                    </div>
+    
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" id="deviceSubmit">新增</button>
+            <button class="btn btn-success" id="deviceSave">儲存</button>
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        </div>
+        </div>
+    </div>
+</div> 
+
+<div w3-include-html="./includes/footer.html"></div>
+
+</body>
+</html>
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
+    <script src="./assets/js/jquery-3.3.1.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/chart.min.js"></script>
+    <script src="./assets/js/jquery.growl.js"></script>
+    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/datetimepicker/moment.min.js"></script>
+    <script src="assets/datetimepicker/datetimepicker.min.js"></script>
+    <script src="./assets/js/w3.min.js"></script>
+    <script src="./assets/dataTables/jquery.dataTables.min.js"></script>
+
+
+    <script src="./static/js/general.js"></script>
+    <script src="./static/js/member.js"></script>

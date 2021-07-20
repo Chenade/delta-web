@@ -1,0 +1,43 @@
+{
+  "name": "social-post-page",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start ecosystem.config.js",
+    "noded": "npx nodemon ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/boom": "9.1.2",
+    "@prisma/client": "2.24.1",
+    "axios": "0.21.1",
+    "dotenv": "9.0.1",
+    "dotenv-expand": "5.1.0",
+    "fastify": "3.15.1",
+    "fastify-cookie": "5.3.1",
+    "fastify-cors": "6.0.1",
+    "fastify-jwt": "^2.5.0",
+    "fastify-multipart": "4.0.6",
+    "fastify-plugin": "^3.0.0",
+    "fastify-swagger": "4.7.0",
+    "form-data": "4.0.0",
+    "json-keys-sort": "2.0.0",
+    "md5": "^2.3.0",
+    "mysql2": "2.2.5",
+    "nanoid": "3.1.23",
+    "pm2": "4.5.6",
+    "sharp": "0.28.3"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.7",
+    "prisma": "2.24.1",
+    "prisma-merge": "0.2.0"
+  },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  }
+}
