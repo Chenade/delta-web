@@ -22,7 +22,8 @@ const {
   schemaAddEvent,
   schemaEventControl,
   schemaEventSearch,
-  schemaEventList
+  schemaEventList,
+  schemaEventNearby
 } = require('./schema/event');
 
 const testController = require('../controllers/testController');
@@ -139,7 +140,6 @@ const routes = [
     schema: schemaEventList.schema
   },
   {
-    //todo
     method: 'GET',
     url: '/node/event/search',
     prefix: '/node',  
@@ -152,6 +152,14 @@ const routes = [
     prefix: '/node',
     handler: eventController.putEvent,
     schema: schemaEventControl.schema.put
+  },
+  //location
+  {
+    method: 'POST',
+    url: '/node/location/:uuid/:lat/:lng',
+    prefix: '/node',
+    handler: eventController.eventNearby,
+    schema: schemaEventNearby.schema
   },
 ]
 

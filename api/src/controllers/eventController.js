@@ -25,6 +25,8 @@ exports.addEvent = async (req, reply) => {
       data: {
           memberId: _uid,
           city: _city,
+          lat: _location.split(',')[0],
+          lng: _location.split(',')[1],
           location: _location,
           time: _time,
           type: _type,
@@ -112,7 +114,11 @@ exports.putEvent = async (req, reply) => {
       let query = '';
       if (req.body.memberId) query += '`memberId`="' + req.body.memberId + '"';
       if (req.body.city) query += (query ? ',' : '') + '`city`="' + req.body.city + '"';
-      if (req.body.location) query += (query ? ',' : '') + '`location`="' + req.body.location + '"';
+      if (req.body.location) {
+        query += (query ? ',' : '') + '`location`="' + req.body.location + '"';
+        query += (query ? ',' : '') + '`lat`="' + req.body.location.split(',')[0] + '"';
+        query += (query ? ',' : '') + '`lng`="' + req.body.location.split(',')[1] + '"';
+      }
       if (req.body.time) query += (query ? ',' : '') + '`time`="' + req.body.time + '"';
       if (req.body.effectLane) query += (query ? ',' : '') + '`effectLane`="' + req.body.effectLane + '"';
       if (req.body.suggestion) query += (query ? ',' : '') + '`suggestion`="' + req.body.suggestion + '"';
@@ -129,6 +135,28 @@ exports.putEvent = async (req, reply) => {
       return reply.status(404).send({error: 'Evnet not Found'});
     
 
+  } catch (err) {
+    reply.status(500).send({'error': err});
+  }
+};
+
+exports.eventNearby = async (req, reply) => {
+  try {
+    
+    const _uuid = req.params.uuid;
+    const _lat = parseFloat(req.params.lat);
+    const _lng = parseFloat(req.params.lng);
+
+    const query_lng = "`lng` > '" + (_lng - 0.005) + "' AND `lng` < '" + (_lng + 0.005) + "'";
+    const query_lat = "`lat` > '" + (_lat - 0.005) + "' AND `lat` < '" + (_lat + 0.005) + "'";
+
+    let query = "SELECT * FROM `event` WHERE" + query_lng + "AND" + query_lat;
+    const events = await prisma.$queryRaw(query);
+
+    let type = events.length;
+    if(events.length) type = events[0].type;
+
+    reply.status(200).send({type: type, events: events})
   } catch (err) {
     reply.status(500).send({'error': err});
   }

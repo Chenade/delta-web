@@ -21,6 +21,8 @@ model event {
   no         Int    @id @default(autoincrement())
   memberId   String @db.VarChar(50)
   city       String @db.VarChar(20)
+  lat        String @db.VarChar(20)
+  lng        String @db.VarChar(20)
   location   String @db.VarChar(50)
   time       Int
   type       Int    @default(1)
@@ -79,4 +81,14 @@ model car {
   licensePlate String @db.VarChar(10)
   memberId     String @db.VarChar(20)
   tag          String @db.Text
+}
+
+model videoapply {
+  no        Int    @id @default(autoincrement())
+  time      Int
+  type      Int
+  location  String @db.VarChar(50)
+  police    Int    @default(0)
+  trafficId String @db.VarChar(20)
+  progress  Int    @default(0)
 }

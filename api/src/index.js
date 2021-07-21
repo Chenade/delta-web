@@ -77,6 +77,7 @@ const excludeValidatePath = [
   '/node/device',
   '/node/device/:licensePlate',
   '/node/event',
+  '/node/location/:uuid/:lat/:lng',
   '/node/documentation'
 ];
 fastify.addHook("onRequest", async (request, reply) => {

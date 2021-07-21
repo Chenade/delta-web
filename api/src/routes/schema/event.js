@@ -161,10 +161,44 @@ const schemaEventControl = {
   }
 };
 
+const schemaEventNearby = {
+  schema: {
+    tags: ['事件相關'],
+    description: '查詢事件',
+    summary: '...',
+    params:{
+      uuid: { type: 'string', description: '總計' },
+      lat: { type: 'string', description: '總計' },
+      lng: { type: 'string', description: '總計' },
+    },
+    response: {
+      '2xx': {
+        type: 'object',
+        properties: {
+          type: { type: 'number', description: '0: SAFE, 1: Traffic, 2: Construction' },
+          events: { type: 'array', items: { type: 'object', properties: {
+            no: { type: 'string', description: '設備uuid' },
+            memberId: { type: 'string', description: '車牌號碼' },
+            city: { type: 'string', description: '設備類型' },
+            location: { type: 'string', description: '設備類型' },
+            time: { type: 'string', description: '設備類型' },
+            type: { type: 'string', description: '設備類型' },
+            effectLane: { type: 'string', description: '設備類型' },
+            suggestion: { type: 'string', description: '設備類型' },
+            done: { type: 'number', description: '設備類型' },
+            timestamp: { type: 'string', description: '設備類型' },
+          } } },
+        }
+      }
+    }
+  }
+  
+};
 
 module.exports = {
   schemaAddEvent,
   schemaEventControl,
   schemaEventSearch,
-  schemaEventList
+  schemaEventList,
+  schemaEventNearby
 };

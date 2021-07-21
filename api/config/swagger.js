@@ -5,9 +5,9 @@ exports.options = {
   exposeRoute: true,
   swagger: {
     info: {
-      title: "MDK動態牆 API",
+      title: "Delta API",
       description: "使用 Node.js, Fastify, Prisma... 製作",
-      version: "0.0.1",
+      version: "1.0.0",
     },
     externalDocs: {
       url: "https://swagger.io",
