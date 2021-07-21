@@ -14,7 +14,7 @@ exports.options = {
       description: "Find more info here",
     },
     host: `${process.env.SERVER_HOST}`,
-    schemes: ["http"],
+    schemes: ["https"],
     consumes: ["application/json"],
     produces: ["application/json"],
     // security: [{ Bearer: [] }],
