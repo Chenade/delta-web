@@ -155,7 +155,7 @@ const routes = [
   },
   //location
   {
-    method: 'POST',
+    method: 'GET',
     url: '/node/location/:uuid/:lat/:lng',
     prefix: '/node',
     handler: eventController.eventNearby,
