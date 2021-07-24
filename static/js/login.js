@@ -84,7 +84,8 @@
                 now.setTime(now.getTime() + 4 * 3600 * 1000);
                 document.cookie = "username="+ $('#acc').val() +";expires=" + now.toUTCString() + ";";
                 document.cookie = "jwt="+ a.token +";expires=" + now.toUTCString() + ";";
-                location.href = "./member.html"
+                const target = (getCookie('page')) ? getCookie('page') : './member.html'
+                location.href = target
             }
             else
                 console.log(a.error);

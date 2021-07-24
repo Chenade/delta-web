@@ -8,14 +8,16 @@ const {
 } = require('./schema/user');
 
 const { 
-  schemaGetVideo, 
-  
+  schemaVideoApply,
+  schemaVideoAuthorize,
+  schemaVideoList
 } = require('./schema/video');
 
 const {
   schemaAddDevice,
   schemaDeviceControl,
-  schemaDeviceList
+  schemaDeviceList,
+  schemaDeviceGPS
 } = require('./schema/device');
 
 const {
@@ -23,7 +25,8 @@ const {
   schemaEventControl,
   schemaEventSearch,
   schemaEventList,
-  schemaEventNearby
+  schemaEventNearby,
+  schemaEmergencyNearby
 } = require('./schema/event');
 
 const testController = require('../controllers/testController');
@@ -124,6 +127,13 @@ const routes = [
     handler: deviceController.putDevice,
     schema: schemaDeviceControl.schema.put
   },
+  {
+    method: 'GET',
+    url: '/node/gps/:licensePlate',
+    prefix: '/node',
+    handler: deviceController.getDeviceGPS,
+    schema: schemaDeviceGPS.schema
+  },
   //event
   {
     method: 'POST',
@@ -153,6 +163,42 @@ const routes = [
     handler: eventController.putEvent,
     schema: schemaEventControl.schema.put
   },
+  //video
+  {
+    method: 'POST',
+    url: '/node/video/apply',
+    prefix: '/node',
+    handler: videoController.videoApply,
+    schema: schemaVideoApply.schema.post
+  },
+  {
+    method: 'GET',
+    url: '/node/video/apply/:uid',
+    prefix: '/node',
+    handler: videoController.getvideoApply,
+    schema: schemaVideoApply.schema.get
+  },
+  {
+    method: 'POST',
+    url: '/node/video/authorize',
+    prefix: '/node',
+    handler: videoController.videoAuthorize,
+    schema: schemaVideoAuthorize.schema.post
+  },
+  {
+    method: 'GET',
+    url: '/node/video/authorize/{uid}',
+    prefix: '/node',
+    handler: videoController.getvideoAuthorize,
+    schema: schemaVideoAuthorize.schema.post
+  },
+  {
+    method: 'GET',
+    url: '/node/video/{uid}',
+    prefix: '/node',
+    handler: videoController.videoList,
+    schema: schemaVideoList.schema
+  },
   //location
   {
     method: 'GET',
@@ -161,6 +207,14 @@ const routes = [
     handler: eventController.eventNearby,
     schema: schemaEventNearby.schema
   },
+  {
+    method: 'GET',
+    url: '/node/emergency/:uuid/:lat/:lng',
+    prefix: '/node',
+    handler: eventController.emergencyEvent,
+    schema: schemaEmergencyNearby.schema
+  }
+  
 ]
 
 module.exports = routes

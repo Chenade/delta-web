@@ -1,63 +1,43 @@
-var object = {
-    updateTime: 0,
-    table : ''
-}
-
-function refreshEvent(id){
-    
-    ajax('GET', '/node/event?time='+object.updateTime, {}, function(a){
-        if(!a.error){
-            object.updateTime = Math.floor(Date.now() / 1000);
-            var dateString = moment.unix(object.updateTime).format("YYYY/MM/DD HH:mm:ss");
-            $("#updateTime").text(dateString);
-            if(a.total > 0){
-                $('#eventCard').empty();
-                $('#eventCard').append(object.table);
-                for(const i in a.events){
-                    var detail = '', event = a.events[i];
-                    detail += '<td>'+ event.city +'</td>';
-                    detail += '<td id="cood_'+i+'"></td>';
-                    detail += '<td>'+ convert('type', event.type) +'</td>';
-                    detail += '<td>'+ convert('lane', event.effectLane) +'</td>';
-                    detail += '<td>'+ convert('suggestion', event.suggestion) +'</td>';
-                    detail += '<td>'+ moment.unix(event.time).format("YYYY/MM/DD HH:mm:ss") +'</td>';
-                    detail += '<td>'+ convert('progress', event.done) +'</td>';
-
-                    detail = '<tr>' + detail + '</tr>';
-                    $('#eventList').append(detail);
-
-                    $.getJSON(GOOGLE_MAP_API_KEY + event.location, function( data ) {
-                        if(!data.error_message)
-                            $('#cood_'+i).text(data.results[0].formatted_address);  
-                    });
-
-                }
-                $('#eventTable').DataTable({});
-                $('.dataTables_length').addClass('bs-select');
-            }
-            setTimeout(refreshEvent, 3000);
-        }
-        else
-            console.error(a.error);
-    });    
-}
-
 $(document).ready(function () {
 
     const _uid = getCookie("username");
-    if(!_uid) location.href = "./";
+    if(!_uid)
+        $('.isLogin').css('display', 'none');
+    else 
+        $('.notLogin').css('display', 'none');
 
-    object.table = $('#eventCard').html();
-    refreshEvent(_uid);
-
-    $('input[type=radio][name=addressType]').change(function() {
-        if ($(this).val() == 'address') 
-            $('#cord').css('display', 'none');
-        else
-            $('#address').css('display', 'none');
+    var eventTable = $('#eventTable').DataTable( {
+        responsive: true,
+        "columns": [
+            { "data": "city" },
+            { "data": "location" },
+            { "data": "type" },
+            { "data": "effectLane" },
+            { "data": "suggestion" },
+            { "data": "time" },
+            { "data": "done" }
+        ],
+        "lengthMenu": [15, 25, 50, 100],
+        "iDisplayLength": 15,
+        "ajax": "/node/event", 
+        "drawCallback": function (settings) {
+            // console.log('refresg');
+            $('#updateTime').text(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
         
-        $('#'+$(this).val()).css('display','block');
+            // $('.cood').each(function() { 
+            //     const obj = $(this), cord = obj.text();
+            //     $.getJSON(GOOGLE_MAP_API_KEY + cord, function( data ) {
+            //         if(!data.error_message && data.status == 'OK')
+            //             obj.text(data.results[0].formatted_address)
+            //     });
+            // });
+        }
     });
+    new $.fn.dataTable.FixedHeader( eventTable );
+    
+    var refresh = setInterval(() => {
+        eventTable.ajax.url('/node/event').load();
+    }, 30000);
 
     $('#Esubmit').on('click', function(){
 

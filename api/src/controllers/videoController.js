@@ -9,54 +9,60 @@ const sharp = require('sharp');
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
-exports.getvideo = async (req, reply) => {
+exports.videoApply = async (req, reply) => {
+  try {
+    
+    const _uid = req.body.uid;
+    const _time = req.body.time;
+    const _type = req.body.type;
+    const _location = req.body.location;
+    const _police = req.body.police;
+    const _trafficId = req.body.trafficId;
+    const _ts = Math.floor(Date.now() / 1000);
+
+    const apply = await prisma.videoapply.create({
+      data: {
+        uid: _uid,
+        time: _time,
+        type: _type,
+        location: _location,
+        police: _police,
+        trafficId: _trafficId,
+        progress: 0,
+        valid: 0,
+        timestamp: _ts
+      }
+    });
+
+    reply.status(204).send({});
+
+  } catch (err) {
+    reply.status(500).send({error: err.message});
+  }
+};
+
+exports.getvideoApply = async (req, reply) => {
   try {
     
     const _uid = req.params.uid;
-    
 
-    reply.send(returnResult);
+    const apply = await prisma.videoapply.findMany({
+      where:{
+        uid: _uid
+      },
+      orderBy:{
+        time: 'asc'
+      }
+    });
 
-  } catch (err) {
-    throw boom.boomify(err);
-  }
-};
-
-exports.postComment = async (req, reply) => {
-  try {
-    let ts = Math.floor(Date.now() / 1000);
-
-    let returnResult = {
-        result: true,
-        code: 0,
-        message: '',
-    };
-
-    // get post data
-    const _linkId = req.body.linkId;
-    const _uid = req.body.uid;
-    const _comment = req.body.comment;
-    const _postType = req.body.postType;
-
-    const comment = await prisma.social_posts_comment.create({
-        data: {
-            linkId: _linkId,
-            uid: _uid,
-            comment: _comment,
-            postType: _postType,
-            dateline: ts
-        }
-    })
-    // console.log(comment);
-
-    reply.send(returnResult);
+    reply.send({total: apply.length, data: apply});
 
   } catch (err) {
     throw boom.boomify(err);
   }
 };
 
-exports.postMessage = async (req, reply) => {
+exports.videoAuthorize = async (req, reply) => {
   try {
     const returnResult = {
       result: true,
@@ -237,7 +243,7 @@ exports.postMessage = async (req, reply) => {
   }
 };
 
-exports.updateMessage = async (req, reply) => {
+exports.getvideoAuthorize = async (req, reply) => {
   try {
     const returnResult = {
       result: true,
@@ -426,7 +432,7 @@ exports.updateMessage = async (req, reply) => {
   }
 };
 
-exports.delMessage = async (req, reply) => {
+exports.videoList = async (req, reply) => {
   try {
     let returnResult = {
       result: false,

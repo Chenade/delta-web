@@ -1,5 +1,5 @@
 const GOOGLE_MAP_API_KEY = 'https://maps.googleapis.com/maps/api/geocode/json?language=zh-TW&key=AIzaSyD1oMT5EFeOqDmaMdb6YlWacWvyWWH6a-E&latlng=';
-console.log(GOOGLE_MAP_API_KEY);
+// console.log(GOOGLE_MAP_API_KEY);
 w3.includeHTML();
 
 var clock = setInterval(() => {
@@ -14,6 +14,13 @@ $('.form_datetime').datetimepicker({
     format:"YYYY-MM-DD HH:mm:ss",
     minDate: new Date()
 });
+
+function checkLogin(){
+    const _uid = getCookie("username");
+    if(!_uid) return false;
+
+    return true;
+}
 
 function getCookie(name) {
     var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -59,7 +66,6 @@ function convert(type, index){
         }
     }
     if(type == 'suggestion'){
-        console.log(index);
         switch(index){
             case '1':
                 return '提前改道';
@@ -112,3 +118,12 @@ function convert(type, index){
         return result
     }
 }
+
+$('input[type=radio][name=addressType]').change(function() {
+    if ($(this).val() == 'address') 
+        $('#cord').css('display', 'none');
+    else
+        $('#address').css('display', 'none');
+    
+    $('#'+$(this).val()).css('display','block');
+});

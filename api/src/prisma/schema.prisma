@@ -78,17 +78,23 @@ model member_profile {
 
 model car {
   no           Int    @id @default(autoincrement())
-  licensePlate String @db.VarChar(10)
+  licensePlate String @unique @db.VarChar(10)
   memberId     String @db.VarChar(20)
   tag          String @db.Text
+  lat          String @db.VarChar(20)
+  lng          String @db.VarChar(20)
+  timestamp    Int    @default(0)
 }
 
 model videoapply {
   no        Int    @id @default(autoincrement())
+  uid       String @db.VarChar(20)
   time      Int
   type      Int
   location  String @db.VarChar(50)
   police    Int    @default(0)
   trafficId String @db.VarChar(20)
   progress  Int    @default(0)
+  valid     Int
+  timestamp Int
 }

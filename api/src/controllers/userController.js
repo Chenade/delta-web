@@ -129,7 +129,7 @@ exports.register = async (req, reply) => {
           username: _username,
           authority: _authority,
           device:0,
-          remainCount:0,
+          remainCount:4,
           emergencyId:  _emergencyId,
           emergencyName: _emergencyName,
           emergencyContact: _emergencyContact

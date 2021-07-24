@@ -1,10 +1,13 @@
 const md5 = require('md5');
+const nodemailer = require('nodemailer');
 
 const crypto = require('crypto');
 const prisma = require('../instances/prisma');
 const axios = require("axios");
 const https = require("https");
 const { default: fastify } = require('fastify');
+
+const General = require('../functions/general.js');
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -14,6 +17,8 @@ exports.addEvent = async (req, reply) => {
     const _uid = req.body.memberId;
     const _city = req.body.city;
     const _location = req.body.location;
+    const _lat =  _location.split(',')[0];
+    const _lng =  _location.split(',')[1];
     const _time = req.body.time;
     const _type = req.body.type;
     const _effectLane = req.body.effectLane;
@@ -25,8 +30,8 @@ exports.addEvent = async (req, reply) => {
       data: {
           memberId: _uid,
           city: _city,
-          lat: _location.split(',')[0],
-          lng: _location.split(',')[1],
+          lat: _lat,
+          lng: _lng,
           location: _location,
           time: _time,
           type: _type,
@@ -36,6 +41,8 @@ exports.addEvent = async (req, reply) => {
           timestamp: _timestamp
       }
     });
+
+    if(req.body.done) General.BroadCast(_lat, _lng)
     
     reply.status(200).send({});
   } catch (err) {
@@ -46,7 +53,7 @@ exports.addEvent = async (req, reply) => {
 exports.getEventList = async (req, reply) => {
   try {
     const time = (req.url.includes("time")) ? req.url.split('=')[1] : 0;
-    const _timestamp = Math.floor(Date.now() / 1000);
+
     const newEvent = await prisma.event.findMany({
       where:{
         AND:[
@@ -67,9 +74,29 @@ exports.getEventList = async (req, reply) => {
         time: 'asc'
       }
     });
-    const total = newEvent.length;
 
-    reply.status(200).send({total: total, events: event})
+    var eventList = []
+    for(const i in event){
+      const el = event[i];
+      var detail ={
+        no: el.no,
+        memberId: el.memberId,
+        city: el.city,
+        location: '<span class="cood">'+el.location+'</span>',
+        time: General.unix(el.time),
+        type: General.convert('type', el.type),
+        effectLane: General.convert('lane', el.effectLane),
+        suggestion: General.convert('suggestion', el.suggestion),
+        done: General.convert('progress', el.done),
+        timestamp: el.timestamp,
+      }
+      eventList.push(detail)
+    }
+
+    const total = newEvent.length;
+    console.log(eventList);
+
+    reply.status(200).send({data: eventList})
 
     
   } catch (err) {
@@ -146,6 +173,18 @@ exports.eventNearby = async (req, reply) => {
     const _uuid = req.params.uuid;
     const _lat = parseFloat(req.params.lat);
     const _lng = parseFloat(req.params.lng);
+    const _ts = Math.floor(Date.now() / 1000);
+
+    await prisma.car.update({
+      where: {
+        licensePlate: _uuid
+      },
+      data: {
+        lat: (_lat).toString(),
+        lng: (_lng).toString(),
+        timestamp: _ts
+      }
+    });
 
     const query_lng = "`lng` > '" + (_lng - 0.005) + "' AND `lng` < '" + (_lng + 0.005) + "'";
     const query_lat = "`lat` > '" + (_lat - 0.005) + "' AND `lat` < '" + (_lat + 0.005) + "'";
@@ -157,6 +196,49 @@ exports.eventNearby = async (req, reply) => {
     if(events.length) type = events[0].type;
 
     reply.status(200).send({type: type, events: events})
+  } catch (err) {
+    reply.status(500).send({'error': err});
+  }
+};
+
+exports.emergencyEvent = async (req, reply) => {
+  try {
+
+    const _lat = (req.params.lat);
+    const _lng = (req.params.lng);
+    const _uuid = req.params.uuid;
+    const _ts = Math.floor(Date.now() / 1000);
+
+    const user = await prisma.device.findUnique({
+      where:{
+        uuid: _uuid
+      },
+      select:{
+        memberId: true
+      }
+    })
+
+    const _uid = user.memberId;
+
+    const event = await prisma.event.create({
+      data: {
+          memberId: _uid,
+          city: '',
+          lat: _lat,
+          lng: _lng,
+          location: _lat + ',' +_lng,
+          time: _ts,
+          type: 1,
+          effectLane: '',
+          suggestion: '1',
+          done: 1,
+          timestamp: _ts
+      }
+    });
+
+    General.BroadCast(_lat, _lng)
+
+    reply.status(200).send({});
   } catch (err) {
     reply.status(500).send({'error': err});
   }

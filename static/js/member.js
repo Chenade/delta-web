@@ -64,7 +64,6 @@ function refreshEvent(uid){
     
     ajax('GET', '/node/event/search?memberId='+uid, {}, function(a){
         if(!a.error){
-            console.log(a);
             if(a.total > 0) {
                 $('#eventEmpty').css('display', 'none');
                 $('#eventList').empty();
@@ -108,8 +107,11 @@ function refreshEvent(uid){
 $(document).ready(function () {
 
     const _uid = getCookie("username");
-    if(!_uid) location.href = "./";
-
+    if(!_uid) {
+        document.cookie = "page="+ window.location.href + ";";
+        location.href = "./";
+    }
+        
     refreshDevice(_uid);
     refreshMember(_uid);
     refreshEvent(_uid);

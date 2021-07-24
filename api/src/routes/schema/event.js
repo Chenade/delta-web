@@ -81,7 +81,7 @@ const schemaEventList = {
         type: 'object',
         properties: {
           total: { type: 'number', description: '總計' },
-          events: { type: 'array', items: { type: 'object', properties: {
+          data: { type: 'array', items: { type: 'object', properties: {
             no: { type: 'string', description: '設備uuid' },
             memberId: { type: 'string', description: '車牌號碼' },
             city: { type: 'string', description: '設備類型' },
@@ -90,7 +90,7 @@ const schemaEventList = {
             type: { type: 'string', description: '設備類型' },
             effectLane: { type: 'string', description: '設備類型' },
             suggestion: { type: 'string', description: '設備類型' },
-            done: { type: 'number', description: '設備類型' },
+            done: { type: 'string', description: '設備類型' },
             timestamp: { type: 'string', description: '設備類型' },
           } } },
         }
@@ -163,13 +163,13 @@ const schemaEventControl = {
 
 const schemaEventNearby = {
   schema: {
-    tags: ['事件相關'],
-    description: '查詢事件',
+    tags: ['設備端'],
+    description: '查詢附近事件',
     summary: '...',
     params:{
-      uuid: { type: 'string', description: '總計' },
-      lat: { type: 'string', description: '總計' },
-      lng: { type: 'string', description: '總計' },
+      uuid: { type: 'string', description: '設備ID' },
+      lat: { type: 'string', description: '經度' },
+      lng: { type: 'string', description: '緯度' },
     },
     response: {
       '2xx': {
@@ -192,7 +192,27 @@ const schemaEventNearby = {
       }
     }
   }
-  
+};
+
+const schemaEmergencyNearby = {
+  schema: {
+    tags: ['設備端'],
+    description: '通報車禍事件',
+    summary: '...',
+    params:{
+      uuid: { type: 'string', description: '設備ID' },
+      lat: { type: 'string', description: '經度' },
+      lng: { type: 'string', description: '緯度' },
+    },
+    response: {
+      '2xx': {
+        type: 'object',
+        properties: {
+          message: { type: 'string', description: '' },
+        }
+      }
+    }
+  }
 };
 
 module.exports = {
@@ -200,5 +220,6 @@ module.exports = {
   schemaEventControl,
   schemaEventSearch,
   schemaEventList,
-  schemaEventNearby
+  schemaEventNearby,
+  schemaEmergencyNearby
 };

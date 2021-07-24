@@ -1,23 +1,143 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Bookkeeping</title>
+    <title>APineal Cam</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/jquery.growl.css" />
+    <link rel="icon" href="static/img/logo.ico">
+    <link rel="stylesheet" href="static/css/main.css" />
+    <link rel="stylesheet" href="assets/jquery/jquery.growl.css" />
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/datetimepicker/datetimepicker.min.css">
+    
+
+    <style>
+        article{
+            margin-left: 2em;;
+        }
+    </style>
 </head>
 
 
 <body>
-    <div w3-include-html="./includes/navbar2.html"></div>
+    <div id="notLogin" w3-include-html="./includes/navbar2.html"></div>
+    <div id="isLogin" w3-include-html="./includes/navbar.html"></div>
     <main role="main">          
     
-        <div class="container" style="margin-top: 10%">
-            <div class="d-flex justify-content-center" style="margin-bottom: 50px;margin-top: 50px;">
+        <div class="container">
+            <div class="d-flex justify-content-center w-100"  style="margin: 5em 1em 0 0;">
                 <img class="center-block" style="width: 20%;" src="./static/img/logo.png"/>
+                <div class="col-6" style="padding: 1rem; border-left: solid #bbb 1px; margin: 2em">
+                    <h3>Team Delta</h3><hr>
+                    <h3>APineal Cam</h3>
+                </div>
             </div>
+            <!-- <hr> -->
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#intro">作品介紹</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#img">作品圖片</a>
+                </li>
+            </ul>
+            <div class="tab-content" style="margin-top: 1em;">
+                <div class="tab-pane active" id="intro">
+                    <h4>Product Innovativeness:</h4>
+                    <article>
+                        <p>Due to the high car accident rate in the society, we came up with a new car recorder having multiple functions. This product has the following two main usage scenarios:</p>
+                        <ol>
+                            <li>General situations</li>
+                            <ol>
+                                <li> The AI recognition will track the vehicle in front of the user and the lane which  the user is currently on. The device will alert when the driver encounters some unexpected situations, the unusual speed approaching the car ahead and the user shifting outside the lane unconsciously.</li>
+                                <li> Especially for motorcycle riders, if there is a bus or truck detected within sight, the AI recognition will compute the inner wheel difference range based on the outer volume. Then, if the rider was inside or near the danger area, the rider will be alerted with the buzzer.</li>
+                                <li> With the GPS detector, the device would receive the data about the speed limitation for the current road, police speed traps, construction-related events and accident information, which was reported to our network platform, within a certain distance. </li>
+                                <li> Before getting on the road, users can simply go to our network platform, check for the pre-schedule construction event and take another route to avoid a traffic jam. In addition, users can set up their own route, which can be used to send notifications automatically whenever there is an event on the route.</li>
+                            </ol>
+                            <li>Accident situation</li>
+                            <ol>
+                                <li>At the scene</li>
+                                <p>If a user is involved in a car accident, the user can press the SOS button on the device which will report the GPS location to the network platform and the police; then the current video will be marked at the cloud at the same time. Before the accident is solved, every device within a certain distance or passing by will receive an emergency notification and alert the user to be aware.</p>
+                                <li>After the accident </li>
+                                <p>When the user who had a car accident needs these videos for several reasons, such as accident evidence, insurance, etc. Users can go to our network platform and fill in the form to ask the owner for their records; if the owner agrees, then the user can get the videos which are muted according to the privacy issue.</p>
+                            </ol>
+                        </ol>
+                        <p>With this new-concept car recorder, we can effectively decrease the car accident rate and make drivers, especially scooter drivers, be more safe.</p>
+                        
+                    </article>
+
+                    <h4>Technology readiness:</h4>
+                    <article>
+                        <p>The technical applications of this product:</p>
+                        <p>With 5G technology as the core foundation, this work is done by combining the characteristics of 5G high speed, low latency and wide connectivity with cloud computing and machine learning.</p>
+                        <ol>
+                            <li>Media Streaming</li>
+                            <p>The images taken by the car recorder are sent to the cloud through the socket server and processed by the advantage of 5G for real-time image recognition; if there is danger detected, the information would be sent back to the user's car recorder device immediately. Meanwhile, the video will be automatically saved on the cloud, which can reduce not only the expense on the SD Card, but the chance the video will be found out broken when needed. 
+                                Additionally, users can login to our either website or app and get the video and gps information for the device.</p>
+                            <li>Image Recognition</li>
+                            <p>We use cloud computing for image recognition, and it is also built on the basis of 5G technology; in this way, we can reduce hardware requirements for the car recorder. Besides, we hope that this product can do vehicle recognition, speed analysis, lane-lines finding, inner wheel difference calculation, traffic light recognition and speed limit recognition. Image recognition is mainly performed by OpenCV, deep learning, Pytorch and YOLO(You only look once) algorithm. We try to train our own yolov3 model based on Pytorch and open source datasets. By implementing  YOLO, we can dramatically increase our calculating speed and accuracy. We also implement some image processing algorithms based on OpenCV to achieve our goals.</p>
+                            <li>Big data analysis</li>
+                            <p>When the server receives the request of a video application for assistance, Server will soon filter the nearby video and the date, and process each gps record with cloud computing in order to find out the specific video that might help the applicant. Next, the server will send an email to each owner of a potential help video, which includes the basic video information and the video links, and the owner will login to our network platform whether to agree or decline.</p>
+                        </ol>
+                    </article>
+
+                    <h4>business potential</h4>
+                    <article>
+                        <p>The business potential of this product can be analyzed by the following points:</p>
+                        <ol>
+                            <li>Practicality and demand</li>
+                            <p>In terms of practicality, if there is an alert before the accident, it can quickly raise the driver's alertness, so that he would have a shorter reaction time and it can also greatly reduce the injury caused by the accident; in addition, after the accident, the user can get the car recorder screen near the accident in time, and it can effectively reduce the traffic disputes with unknown cause. Finally, in normal driving conditions, the driver can use the device to know the road conditions, including speed limits, traffic signals and the inner wheels of the car in front, etc., in order to avoid accidents caused by the driver’s distractions.
+                                In terms of demand, most of the scooters and old cars in the market today do not have the function of using technology to avoid accidents, and when the cause of an accident needs to be analyzed, there is often only a video from the front camera; This product can smoothly solve these problems, so I believe that the demand of our product in the market would be quite high.</p>
+                            <li>achievable market penetration rate</li>
+                            <p>The higher the popularity of this product, the more effective it can be, so the market penetration rate can be one of the important indicators to measure the business potential. The development of this product is mainly for software function, and the hardware part can modify or enhance the car recorder which has been a popular market; therefore, if it can be successfully marketed, the expected penetration rate of this product can be roughly with the existing car recorder as a reference.
+                                In addition, most people may think that they do not want to spend extra money to provide information to others, but in fact, when they help others, they also enhance the actual application value of the product and have a better experience for themselves. Thus, it is believed that the product would be more acceptable to the users for their own benefit, which would increase the market penetration rate and maximize the functions of the product.</p>
+                            <li>price acceptance by consumers and producers</li>
+                            <p>As mentioned above, this product is based on software development. Thus, for the manufacturer, it only needs to integrate the software on the original product or upgrade the hardware slightly, and it will not cause too much burden on the production cost. For consumers, although the price of the product will be slightly higher, the functions attached to the product are very powerful, and the value of the product for consumers will also grow greatly, which will create higher demand in the market and achieve a win-win situation.</p>
+                            <li>Other factors</li>
+                            <p>In addition to the above three points, there are many other aspects that can influence the marketability of this product. For example, if the government subsidies for people to install car recorders, or increases the awareness of road safety for people, it can effectively increase the demand for the product and create strong business opportunities.</p>
+                        </ol>
+                    </article>
+
+                    <h4>Plans for sustainable development:</h4>
+                    <article>
+                        <p>The main development of this product can be divided into the following stages:</p>
+                        <ol>
+                            <li>Currently completed</li>
+                            <p>
+                                We use Arduino Yun Rev 2 attached with a webcam, a gps detector, and a buzzer as a prototype of an end-user device. Currently, we could stream the scene within the intranet, and the image recognition will process with the intranet url. The device will send a GET HTTP Request to the server to ask for the event details nearby and update the device location every 3 seconds.
+                                For image recognition, now we can approximately find the lane-lines, and distinguish some kinds of vehicles such as bus, truck, car and motorbike, and we also can calculate the speed of approaching within two cars.
+                                For the network platform, we use node.js to develop REST API for communication, and AWS cloud service to host it. Detail can be view with following url:
+                                <ul>
+                                    <li>Website: <a href="https://ec2-18-117-76-6.us-east-2.compute.amazonaws.com/" target="_blank">https://ec2-18-117-76-6.us-east-2.compute.amazonaws.com/</a></li>
+                                    <li>API documentation: <a href="https://ec2-18-117-76-6.us-east-2.compute.amazonaws.com/node/documentation/static/index.html" target="_blank">https://ec2-18-117-76-6.us-east-2.compute.amazonaws.com/node/documentation/static/index.html</a></li>
+                                </ul>
+                            </p>
+
+                            <li>Short-term development</li>
+                            <p>For the end-user device, we plan to use Raseberry Pi instead for better performance and develop on multiple cameras connection in order to have more 視角 of the vehicle. For media streaming, we are working to make the streaming through the internet, and will be automatically saved on the cloud, which is categorized by the location. Besides, the routes the users passing through will also be saved on the cloud entirely. For image recognition, we are trying to improve the lane-line finding, accuracy of deep learning model and implement identification of traffic signs, and inner wheel differentiation, and we believe that we will make it realistic.</p>
+
+                            <li>Long-term development</li>
+                            <p>All the technologies in the market that are being developed and have been developed can be integrated into this product, such as license plate recognition to find stolen cars, two-way traffic recorder, etc., and then optimize them. The goal is to complete a car recorder with more functions and enhance its promotion, so that more consumers can use this product to enhance traffic safety and further create a stronger traffic information network.
+                                After the completion of the integrated car recorder, according to the different needs of users, they can implant customized features. For example, logistics information can be sent back to the company through this product, traffic flow and road condition analysis can be sent back to government agencies, and disaster information can be sent back to the fire department or military. Then, this product can be widely applied to various units and can be easily installed to various devices, and make our life more convenient and safe.</p>
+                        </ol>
+                    </article>
+
+                    <h4>Reference</h4>
+                    <article>
+                        <ul>
+                            <li>https://www.youtube.com/watch?v=1LCb1PVqzeY</li>
+                            <li>https://github.com/ultralytics/yolov3</li>
+                            <li>OpenCV Python Tutorial For Beginners - Road Lane Line Detection with OpenCV (Part 2) (github.com)</li>
+                        </ul>
+                    </article>
+                </div>
+                <div class="tab-pane active" id="img">
+                    
+                </div>
+            </div>
+
+            
+           
         </div>
     
     </main>
@@ -28,15 +148,24 @@
 
 </html>
 
-<!-- Scripts -->
-<script src="./assets/js/jquery-3.3.1.min.js"></script>
-<script src="./assets/js/popper.min.js"></script>
-<script src="./assets/js/chart.min.js"></script>
-<script src="./assets/js/jquery.growl.js"></script>
-<script src="./assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="./assets/js/w3.min.js"></script>
 
-<script src="./static/js/general.js"></script>
-<script src="./static/js/login.js"></script>
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
+    <script src="assets/jquery/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/chart.min.js"></script>
+    <script src="assets/jquery/jquery.growl.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/datetimepicker/moment.min.js"></script>
+    <script src="assets/datetimepicker/datetimepicker.min.js"></script>
+    <script src="assets/js/w3.min.js"></script>
+    <script src="assets/dataTables/jquery.dataTables.min.js"></script>
+        
+    <script src="./static/js/general.js"></script>
 
-</html>
+    <script>
+
+        if(checkLogin()) $('#notLogin').css('display', 'none');
+        else $('#isLogin').css('display', 'none');
+
+    </script>

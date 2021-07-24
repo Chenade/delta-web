@@ -1,12 +1,6 @@
-var object = {
-    updateTime: 0,
-    table : ''
-}
-
 function refreshEvent(uid){
     ajax('GET', '/node/event/search?memberId='+uid, {}, function(a){
         if(!a.error){
-            console.log(a);
             if(a.total > 0) {
                 $('#selfEmpty').css('display', 'none');
                 $('#selfEvent').css('display', 'block');
@@ -53,11 +47,18 @@ function refreshEvent(uid){
 $(document).ready(function () {
 
     const _uid = getCookie("username");
-    if(!_uid) location.href = "./";
+    if(checkLogin()) {
+        $('#notLogin').css('display', 'none');
+        $('#nav-manage').css('display','block');
+    }
+    else $('#isLogin').css('display', 'none');
 
+    // const _uid = getCookie("username");
+    // if(!_uid) {
+    //     document.cookie = "page="+ window.location.href + ";";
+    //     location.href = "./";
+    // }
     refreshEvent(_uid);
-
-    object.table = $('#eventCard').html();
 
     $('input[type=radio][name=EaddressType]').change(function() {
         if ($(this).val() == 'address') 
@@ -136,7 +137,6 @@ $(document).ready(function () {
            }
        });
     });
-    
     
     $(document).on('click', '.eventEnd', function (e){
         const btn = $(this), tid = btn.data('id');

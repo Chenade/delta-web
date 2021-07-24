@@ -52,7 +52,6 @@ const schemaDeviceList = {
       }
     }
   }
-  
 };
 
 const schemaDeviceControl = {
@@ -107,8 +106,31 @@ const schemaDeviceControl = {
 };
 
 
+const schemaDeviceGPS = {
+  schema: {
+    tags: ['設備相關'],
+    description: '取得設備位置',
+    summary: '...',
+    params:{
+      licensePlate: {type: 'string', description: '用戶ID'}
+    },
+    response: {
+      '2xx': {
+        type: 'object',
+        properties: {
+          lat: { type: 'string', description: '經度' },
+          lng: { type: 'string', description: '緯度' },
+          timestamp: { type: 'number', description: '時間戳記' },
+        }
+      }
+    }
+  }
+};
+
+
 module.exports = {
   schemaAddDevice,
   schemaDeviceControl,
-  schemaDeviceList
+  schemaDeviceList,
+  schemaDeviceGPS
 };

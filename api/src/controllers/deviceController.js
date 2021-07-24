@@ -132,3 +132,25 @@ exports.putDevice = async (req, reply) => {
     reply.status(500).send({'error': err});
   }
 };
+
+exports.getDeviceGPS = async (req, reply) => {
+  try {
+    const _licensePlate = req.params.licensePlate;
+    const device = await prisma.car.findUnique({
+      where: {
+        licensePlate: _licensePlate
+      },
+      select:{
+        lat: true,
+        lng: true,
+        timestamp: true
+      }
+    });
+
+    reply.status(200).send({'lat': device.lat, 'lng': device.lng, 'timestamp': device.timestamp})
+
+    
+  } catch (err) {
+    reply.status(500).send({'error': err});
+  }
+};

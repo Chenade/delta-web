@@ -72,13 +72,15 @@ const excludeValidatePath = [
   // '/node/tests',
   '/node/login',
   '/node/register',
-  '/node/register/:uid',
-  '/node/user/:uid',
+  '/node/documentation',
+  'node/emergency',
+
+  'node/gps',
+  '/node/user',
   '/node/device',
-  '/node/device/:licensePlate',
   '/node/event',
-  '/node/location/:uuid/:lat/:lng',
-  '/node/documentation'
+  '/node/location',
+  '/node/video'
 ];
 fastify.addHook("onRequest", async (request, reply) => {
   try {

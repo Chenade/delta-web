@@ -1,23 +1,15 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Bookkeeping</title>
+    <title>APineal Cam</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/jquery.growl.css" />
+    <link rel="icon" href="static/img/logo.ico">
+    <link rel="stylesheet" href="static/css/main.css" />
+    <link rel="stylesheet" href="assets/jquery/jquery.growl.css" />
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/datetimepicker/datetimepicker.min.css">
+    <link rel="stylesheet" href="assets/datetimepicker/datetimepicker.min.css">
 
-
-    <!-- Scripts -->
-    <script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
-    <script src="./assets/js/jquery-3.3.1.min.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/chart.min.js"></script>
-    <script src="./assets/js/jquery.growl.js"></script>
-    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/datetimepicker/moment.min.js"></script>
-    <script src="assets/datetimepicker/datetimepicker.min.js"></script>
 </head>
 
 <body>
@@ -153,21 +145,15 @@
 </body>
 </html>
 
-<script src="./assets/js/w3.min.js"></script>
-<script>w3.includeHTML();</script>
+<!-- Scripts -->
+<script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
+<script src="assets/jquery/jquery-3.3.1.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/chart.min.js"></script>
+<script src="assets/jquery/jquery.growl.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/datetimepicker/moment.min.js"></script>
+<script src="assets/datetimepicker/datetimepicker.min.js"></script>
+<script src="assets/js/w3.min.js"></script>
 
-<script>
-    $('.form_datetime').datetimepicker({
-        format:"YYYY-MM-DD HH:mm:ss",
-    });
-
-    $('input[type=radio][name=addressType]').change(function() {
-        if ($(this).val() == 'address') 
-            $('#cord').css('display', 'none');
-        else
-            $('#address').css('display', 'none');
-        
-        $('#'+$(this).val()).css('display','block');
-    });
-
-</script>
+<script src="static/js/general.js"></script>
