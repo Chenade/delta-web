@@ -20,9 +20,9 @@ function onlineDevice(){
     ajax('GET', '/node/gps/'+object.licensePlate, {}, function(a){
         if(!a.error){
             console.log(a);
-
+            
             map.setView(new L.LatLng(a.lat, a.lng), 15);
-            var marker = L.marker([a.lat, a.lat], {icon: myIcon}).addTo(map);
+            var marker = L.marker([a.lat, a.lng], {icon: myIcon}).addTo(map);
             // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
             setTimeout(() => {  onlineDevice()  }, 5000);
         }else
