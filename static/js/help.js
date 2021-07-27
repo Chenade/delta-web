@@ -55,7 +55,7 @@ function refreshAuthorizeTable(uid){
                     row2 += '<button class="btn btn-primary authorizeView" style="margin:0.5em;" data-target="'+req.no+'">VIEW</button>&emsp;&emsp;&emsp;&emsp;';
                     if(req.authorize == 0) row2 += '<button class="btn btn-success authorizeAgree" style="margin:0.5em;" data-target="'+req.no+'">AGREE</button>' + '<button class="btn btn-danger authorizeDecline" style="margin:0.5em;" data-target="'+req.no+'">DECLINE</button>';
                     if(req.authorize == 1) row2 += '<h3 class="text-success">AGREED</h3>';
-                    if(req.authorize == 1) row2 += '<h3 class="text-warning">DECLINED</h3>';
+                    if(req.authorize == 2) row2 += '<h3 class="text-warning">DECLINED</h3>';
                     row2 = '<div class="col-12 col-lg-4 d-flex align-items-center flex-wrap">' + row2 + '</div>';
 
                     row = '<div class="col-12 d-flex flex-wrap" style="border: solid #bbb 1px; padding:0.5em;">' + row + row2 + '</div>';
