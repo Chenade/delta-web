@@ -60,7 +60,8 @@ model video {
 
 model videoshare {
   no         Int    @id @default(autoincrement())
-  vid        Int
+  applyId    Int
+  videoFile  String @db.VarChar(50)
   owner      String @db.VarChar(50)
   user       String @db.VarChar(50)
   authorize  Int    @default(0)

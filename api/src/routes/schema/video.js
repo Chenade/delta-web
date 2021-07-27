@@ -43,10 +43,7 @@ const schemaVideoApply = {
       params: {
         type: 'object',
         properties: {
-          uid: {
-            type: 'string',
-            description: 'uid'
-          }
+          uid: { type: 'string', description: 'uid'}
         }
       },
       response: {
@@ -55,8 +52,10 @@ const schemaVideoApply = {
           properties: {
             total: { type: 'number', description: '' },
             data: { type: 'array', items: { type: 'object', properties: {
+              no: { type: 'number', description: '用戶名稱' },
               uid: { type: 'string', description: '用戶名稱' },
               time: { type: 'number', description: '用戶權限' },
+              timestamp: { type: 'number', description: '用戶權限' },
               type: { type: 'number', description: '用戶權限' },
               location: { type: 'string', description: '用戶權限' },
               police: { type: 'number', description: '用戶權限' },
@@ -102,27 +101,27 @@ const schemaVideoAuthorize = {
   schema: {
     get: {
       tags: ['影片相關'],
-      description: '申請影片',
+      description: '歷史授權',
       summary: '...',
       // security: [{ Bearer: [] }],
       params: {
         type: 'object',
         properties: {
-          uid: {
-            type: 'string',
-            description: 'uid'
-          }
+          uid: { type: 'string', description: 'uid'}
         }
       },
       response: {
         '2xx': {
           type: 'object',
           properties: {
-            error: { type: 'string', description: '' },
             total: { type: 'number', description: '' },
             data: { type: 'array', items: { type: 'object', properties: {
-              uuid: { type: 'string', description: '設備uuid' },
-              type: { type: 'string', description: '設備類型' }
+              no: { type: 'number', description: '用戶名稱' },
+              vid: { type: 'string', description: '用戶名稱' },
+              owner: { type: 'string', description: '用戶權限' },
+              user: { type: 'string', description: '用戶權限' },
+              authorize: { type: 'number', description: '用戶權限' },
+              expireDate: { type: 'number', description: '用戶權限' },      
             } } },          
           }
         }
@@ -130,44 +129,50 @@ const schemaVideoAuthorize = {
     },
     post:{
       tags: ['影片相關'],
-      description: '申請影片紀錄',
+      description: '申請影片授權',
       summary: '...',
-      // security: [
-      //   {
-      //     Bearer: []
-      //   }
-      // ],
-      params: {
-        type: 'object',
-        properties: {
-          uid: {
-            type: 'string',
-            description: 'uid'
-          }
-        }
-      },
+      // security: [ {Bearer: []} ],
       body: {
         type: 'object',
         properties: {
-          username: { type: 'string', description: '用戶名稱' },
-          authority: { type: 'number', description: '用戶權限' },
-          emergency: { type: 'object',properties: {
-            id: { type: 'string', description: '緊急聯絡人ID' },
-            name: { type: 'string', description: '緊急聯絡人名稱' },
-            contact: { type: 'string', description: '緊急聯絡人聯絡方式' },
-          }}      
+          vid: { type: 'string', description: '用戶名稱' },
+          owner: { type: 'string', description: '用戶權限' },
+          user: { type: 'string', description: '用戶權限' },
+          authorize: { type: 'number', description: '用戶權限' },
+          expireDate: { type: 'number', description: '用戶權限' },   
         }
       },
       response: {
         '2xx': {
           type: 'object',
           properties: {
-            error: { type: 'string', description: '' },
-            total: { type: 'number', description: '' },
-            data: { type: 'array', items: { type: 'object', properties: {
-              uuid: { type: 'string', description: '設備uuid' },
-              type: { type: 'string', description: '設備類型' }
-            } } },          
+            error: { type: 'string', description: '' },    
+          }
+        }
+      }
+    },
+    put:{
+      tags: ['影片相關'],
+      description: '回復影片授權',
+      summary: '...',
+      // security: [ {Bearer: []} ],
+      params: {
+        type: 'object',
+        properties: {
+          rid: { type: 'string', description: 'Request Id'}
+        }
+      },
+      body: {
+        type: 'object',
+        properties: {
+          authorize: { type: 'number', description: '1: Agree, 2: Decline' },   
+        }
+      },
+      response: {
+        '2xx': {
+          type: 'object',
+          properties: {
+            error: { type: 'string', description: '' },    
           }
         }
       }

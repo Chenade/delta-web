@@ -15,6 +15,11 @@ $('.form_datetime').datetimepicker({
     minDate: new Date()
 });
 
+$('.form_datetime_pre').datetimepicker({
+    format:"YYYY-MM-DD HH:mm:ss",
+    maxDate: new Date()
+});
+
 function checkLogin(){
     const _uid = getCookie("username");
     if(!_uid) return false;
@@ -58,24 +63,28 @@ function ajax(method, url, data, callback) {
 
 function convert(type, index){
     if(type == 'type'){
+        index = parseInt(index);
+       
         switch(index){
-            case '1':
+            case 1:
                 return '車禍';
-            case '2':
+            case 2:
                 return '施工';
         }
     }
     if(type == 'suggestion'){
+        index = parseInt(index);
         switch(index){
-            case '1':
+            case 1:
                 return '提前改道';
-            case '2':
+            case 2:
                 return '小心駕駛';
             default:
                 return index
         }
     }
     if(type == 'progress'){
+        index = parseInt(index);
         switch(index){
             case 0:
                 return '';
@@ -127,3 +136,13 @@ $('input[type=radio][name=addressType]').change(function() {
     
     $('#'+$(this).val()).css('display','block');
 });
+
+function translateCoordinate(){
+    $('.cood').each(function() { 
+        const obj = $(this), cord = obj.text();
+        $.getJSON(GOOGLE_MAP_API_KEY + cord, function( data ) {
+            if(!data.error_message && data.status == 'OK')
+                obj.text(data.results[0].formatted_address)
+        });
+    });
+}

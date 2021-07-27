@@ -186,16 +186,16 @@ exports.eventNearby = async (req, reply) => {
       }
     });
 
-    const query_lng = "`lng` > '" + (_lng - 0.005) + "' AND `lng` < '" + (_lng + 0.005) + "'";
-    const query_lat = "`lat` > '" + (_lat - 0.005) + "' AND `lat` < '" + (_lat + 0.005) + "'";
+    const query_lng = "`lng` > '" + (_lng - 0.0027) + "' AND `lng` < '" + (_lng + 0.0027) + "'";
+    const query_lat = "`lat` > '" + (_lat - 0.0027) + "' AND `lat` < '" + (_lat + 0.0027) + "'";
 
     let query = "SELECT * FROM `event` WHERE" + query_lng + "AND" + query_lat;
     const events = await prisma.$queryRaw(query);
 
     let type = events.length;
     if(events.length) type = events[0].type;
-
-    reply.status(200).send({type: type, events: events})
+ 
+    reply.status(200).send({type: type})
   } catch (err) {
     reply.status(500).send({'error': err});
   }

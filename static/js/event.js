@@ -21,16 +21,8 @@ $(document).ready(function () {
         "iDisplayLength": 15,
         "ajax": "/node/event", 
         "drawCallback": function (settings) {
-            // console.log('refresg');
             $('#updateTime').text(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
-        
-            // $('.cood').each(function() { 
-            //     const obj = $(this), cord = obj.text();
-            //     $.getJSON(GOOGLE_MAP_API_KEY + cord, function( data ) {
-            //         if(!data.error_message && data.status == 'OK')
-            //             obj.text(data.results[0].formatted_address)
-            //     });
-            // });
+            translateCoordinate()
         }
     });
     new $.fn.dataTable.FixedHeader( eventTable );

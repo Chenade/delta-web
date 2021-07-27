@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/datetimepicker/datetimepicker.min.css">
     <link rel="stylesheet" href="assets/datetimepicker/datetimepicker.min.css">
-
 </head>
 
 <body>
@@ -27,7 +26,7 @@
                         <a class="nav-link active" data-toggle="tab" href="#apply">申請</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#record">申請紀錄</a>
+                        <a class="nav-link" data-toggle="tab" id="applyNav" href="#record">申請紀錄</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#authorize">歷史授權</a>
@@ -45,12 +44,12 @@
                                 <form onsubmit="return false;"  id="apply">
                                     <div class="row input-box">
                                         <label class="col-form-label">申請時間 :</label>
-                                        <input type="text" class="form-control form_datetime" name="start_date" id="start_date" placeholder="yyyy-mm-dd HH:mm:ss">
+                                        <input type="text" class="form-control form_datetime_pre" id="time" placeholder="yyyy-mm-dd HH:mm:ss">
                                     </div>
                                     <div class="row input-box">
                                         <label class="col-form-label">事件類型 :</label>
-                                        <select class="selectpicker form-control" data-type="string" data-id="type">
-                                            <option value="0">車禍</option>
+                                        <select class="selectpicker form-control" id="applyType">
+                                            <option value="1">車禍</option>
                                             <!-- <option value="1">施工</option> -->
                                         </select>
                                     </div>
@@ -84,26 +83,26 @@
     
                                         <div id="cord" style="display: none;">
                                             <div class="d-flex justify-content-around">
-                                                <input type="text" class="form-control" id="long" placeholder="經度">
-                                                <input type="text" class="form-control" id="lat" placeholder="緯度">
+                                                <input type="text" class="form-control" id="applyLong" placeholder="經度">
+                                                <input type="text" class="form-control" id="applyLat" placeholder="緯度">
                                             </div>  
                                         </div>
                                     </div>                                    
 
                                     <div class="row input-box">
                                         <label class="col-form-label">是否報警 :</label>
-                                        <select class="selectpicker form-control" data-type="string" data-id="type">
+                                        <select class="selectpicker form-control" id="applyIsPolice">
                                             <option value="0">是</option>
                                             <option value="1">否</option>
                                         </select>
                                     </div>
                                     <div class="row input-box">
                                         <label class="col-form-label">車禍三聯單編號 :</label>
-                                        <input type="text" class="form-control" name="policeNo" id="policeNo" placeholder="系統驗證用，非公開">
+                                        <input type="text" class="form-control" id="policeNo" placeholder="系統驗證用，非公開">
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <button class="btn btn-warning w-100" id="submit_now">送出</button>
+                                        <button class="btn btn-warning w-100" id="submit_apply">送出</button>
                                     </div>
             
                                 </form>
@@ -115,9 +114,10 @@
                         <div class="card">
                             <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
                                 申請紀錄
+                                <button class="btn" id="refreshApply"><i class="fas fa-sync"></i></button>
                             </div>
                             <div class="card-body">
-                                <h3>目前尚無申請紀錄</h3>
+                                <div id="applyTable"><h3>目前尚無申請紀錄</h3></div>
                             </div>
                         </div>
                     </div>
@@ -126,9 +126,10 @@
                         <div class="card">
                             <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
                                 歷史授權
+                                <button class="btn" id="refreshAuthorize"><i class="fas fa-sync"></i></button>
                             </div>
                             <div class="card-body">
-                                <h3>目前尚無歷史授權</h3>
+                                <div id="authorizeTable"><h3>目前尚無歷史授權</h3></div>
                             </div>
                         </div>
                     </div>
@@ -140,6 +141,26 @@
     
 
 </main>
+<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="videoModalTitle">影片支援</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body d-flex flex-wrap">
+            <video width="320" height="240" src="./data/richard/authorized/20210726_1300.mp4" controls></video>        
+        </div>
+        <div class="modal-footer">
+            <!-- <button class="btn btn-success" id="deviceSubmit">新增</button>
+            <button class="btn btn-success" id="deviceSave">儲存</button> -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+</div> 
 <div w3-include-html="./includes/footer.html"></div>
 
 </body>
@@ -147,9 +168,7 @@
 
 <!-- Scripts -->
 <script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
-<script src="assets/jquery/jquery-3.3.1.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/chart.min.js"></script>
+<script src="assets/jquery/jquery-3.5.1.min.js"></script>
 <script src="assets/jquery/jquery.growl.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/datetimepicker/moment.min.js"></script>
@@ -157,3 +176,4 @@
 <script src="assets/js/w3.min.js"></script>
 
 <script src="static/js/general.js"></script>
+<script src="static/js/help.js"></script>

@@ -187,14 +187,21 @@ const routes = [
   },
   {
     method: 'GET',
-    url: '/node/video/authorize/{uid}',
+    url: '/node/video/authorize/:uid',
     prefix: '/node',
     handler: videoController.getvideoAuthorize,
-    schema: schemaVideoAuthorize.schema.post
+    schema: schemaVideoAuthorize.schema.get
+  },
+  {
+    method: 'PUT',
+    url: '/node/video/authorize/:rid',
+    prefix: '/node',
+    handler: videoController.putvideoAuthorize,
+    schema: schemaVideoAuthorize.schema.put
   },
   {
     method: 'GET',
-    url: '/node/video/{uid}',
+    url: '/node/video/:uid',
     prefix: '/node',
     handler: videoController.videoList,
     schema: schemaVideoList.schema
