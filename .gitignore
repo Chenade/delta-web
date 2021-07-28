@@ -121,6 +121,9 @@ package-lock.json
 # prisma client
 src/prisma/client
 
-# test
+#video file
+data/
+
+#IDE
 .vscode/
 .idea/
