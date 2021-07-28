@@ -139,9 +139,9 @@ $('input[type=radio][name=addressType]').change(function() {
 function translateCoordinate(){
     $('.cood').each(function() { 
         const obj = $(this), cord = obj.text();
-        // $.getJSON(GOOGLE_MAP_API_KEY + cord, function( data ) {
-        //     if(!data.error_message && data.status == 'OK')
-        //         obj.text(data.results[0].formatted_address)
-        // });
+        $.getJSON(GOOGLE_MAP_API_KEY + cord, function( data ) {
+            if(!data.error_message && data.status == 'OK')
+                obj.text(data.results[0].formatted_address)
+        });
     });
 }
