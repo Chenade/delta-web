@@ -6,53 +6,18 @@
     <link rel="icon" href="static/img/logo.ico">
     <link rel="stylesheet" href="static/css/main.css" />
     <link rel="stylesheet" href="assets/jquery/jquery.growl.css" />
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap3-3-7.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/fixedHeader.bootstrap.min.css">
     <link rel="stylesheet" href="assets/datetimepicker/datetimepicker.min.css">
 
-    <link rel="stylesheet" href="assets/dataTables/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="assets/dataTables/responsive.bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="assets/dataTables/jquery.dataTables.min.css"> -->
-
-    <!-- <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-glyphicons.css"> -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="assets/dataTable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="assets/dataTable/responsive.bootstrap4.min.css">
+    
 </head>
 
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-          
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/back">
-                <div class="">
-                    <img src="./static/img/logo.ico" style="margin-bottom: 5px" width="20" height="20">
-                    <b>APineal Cam</b>
-                </div>
-            </a>
-          </div>
-      
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="nav navbar-nav">
-                <li class="isLogin nav-item"><a class="nav-link" href="./live.html"><i class="fas fa-circle"></i> 即時畫面</a></li>
-                <!-- <li class="isLogin nav-item"><a class="nav-link" href="./history.html"><i class="fas fa-history"></i> 歷史畫面</a></li> -->
-                <li class="nav-item"><a class="nav-link" href="./event.html"><i class="fas fa-exclamation-triangle"></i> 事件清單</a></li>
-                <li class="isLogin nav-item"><a class="nav-link" href="./notify.html"><i class="fas fa-exclamation-triangle"></i> 事件通報</a></li>
-                <li class="isLogin nav-item"><a class="nav-link" href="./help.html"><i class="fas fa-hands-helping"></i> 授權協助</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="isLogin nav-item"><a class="nav-link" href="./member.html"> <i class="fas fa-user"></i> 會員資料</a></li>       
-                <li class="notLogin nav-item"><a class="nav-link" href="./login.html"> <i class="fas fa-sign-in-alt"></i> 會員登入</a></li>
-            </ul>
-          </div>
-        </div>
-    </nav>
+    <div id="notLogin" w3-include-html="./includes/navbar2.html"></div>
+    <div id="isLogin" w3-include-html="./includes/navbar.html"></div>
 <main role="main">            
 
     <div class="container">
@@ -88,7 +53,7 @@
 </main>
 <footer class="footer" style=" color: rgb(157, 157, 157); font-size: 15px;">
     <div class="col-12" style="display: flex; justify-content: space-between; padding:0 1em;">
-        <div>Copyright © Omega</div>
+        <div>Copyright © Delta</div>
         <div><a href="#" style="color: #888888">聯絡我們</a></div>
     </div>
 </footer>
@@ -100,18 +65,16 @@
     <!-- Scripts -->
     <script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
 
-    <!-- <script src="assets/jquery/jquery-3.3.1.min.js"></script> -->
     <script src="assets/jquery/jquery-3.5.1.min.js"></script>
     <script src="assets/jquery/jquery.growl.js"></script>
-    <script src="assets/bootstrap/js/bootstrap3-3-7.min.js"></script>
-
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     
-    <script src="assets/dataTables/jquery.dataTables.min.js"></script>
-    <script src="assets/dataTables/dataTables.bootstrap.min.js"></script>
-    <script src="assets/dataTables/dataTables.fixedHeader.min.js"></script>
-    <script src="assets/dataTables/dataTables.responsive.min.js"></script>
-    <!-- <script src="assets/dataTables/responsive.bootstrap.min.js"></script> -->
-
+    <script src="assets/dataTable/jquery.dataTables.min.js"></script>
+    <script src="assets/dataTable/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/dataTable/dataTables.fixedHeader.min.js"></script>
+    <script src="assets/dataTable/dataTables.responsive.min.js"></script>
+    <script src="assets/dataTable/responsive.bootstrap4.min.js"></script>
+    
     <script src="assets/datetimepicker/moment.min.js"></script>
     <script src="assets/datetimepicker/datetimepicker.min.js"></script>
     <script src="assets/js/w3.min.js"></script>

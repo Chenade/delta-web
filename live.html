@@ -22,28 +22,28 @@
         <hr>  
 
         <div id="carList"></div>
+        <hr>
+        <div class="d-flex flex-wrap">
+            <div class="col-12 col-lg-6">
+                <div id="online">
+                    <p><i class="fas fa-circle text-danger"></i> 設備上線中</p>
+                    <iframe id="streaming" src="" style="width: 330px; height: 250px;"></iframe>
 
-        <div id="online">
-            <p><i class="fas fa-circle text-danger"></i> 設備上線中</p>
-        
-
-            <div class="d-flex flex-wrap">
-                <div class="col-12 col-sm-6 col-lg-6">
-                    <!-- <video controls src="" style="height: 65vh;">
-                    </video> -->
-                    <iframe src="http://123.local:8080/?action=stream" style="width: 330px; height: 250px;"></iframe>
+                    <!-- <video controls src="" style="height: 65vh;"></video> -->
                 </div>
-
-                <div class="col-12 col-sm-6 col-lg-6">
-                    <div id="map_index" style="border-radius: 4px; height: 300px;"></div>
-                    <p>GPS資訊(經度，緯度)：<span id="gps_Lat">2021-07-15 11:45</span>, <span id="gps_Lng">2021-07-15 11:45</span></p>
-                    <p>Last update: <span id="gps_UpdateTime">2021-07-15 11:45</span></p>
+                
+                <div id="offline">
+                    <p style="color: #bbb;"><i class="fas fa-circle"></i> 設備未上線</p>
                 </div>
-
             </div>
-        </div> 
-        <div id="offline">
-            <p style="color: #bbb;"><i class="fas fa-circle"></i> 設備未上線</p>
+
+            <div class="col-12 col-lg-6">
+                <h5>GPS Information</h5>
+                <div id="map_index" style="border-radius: 4px; height: 300px;"></div>
+                <p>(latitude, longitude)：<span id="gps_Lat">2021-07-15 11:45</span>, <span id="gps_Lng">2021-07-15 11:45</span></p>
+                <p>Last update: <span id="gps_UpdateTime">2021-07-15 11:45</span></p>
+            </div>
+
         </div>
 
     </div>

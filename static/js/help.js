@@ -62,7 +62,7 @@ function refreshAuthorizeTable(uid){
                     $('#authorizeTable').append(row);
                 }
 
-                // translateCoordinate()
+                translateCoordinate()
             }else
                 $('#authorizeTable').html('<h3>目前尚無歷史授權</h3>');
         }

@@ -11,7 +11,7 @@ function refreshEvent(uid){
                     var detail = '';
 
                     detail += '<h4><span class="badge badge-secondary">'+convert('type', event.type)+'</span> | <span class="badge badge-secondary">'+convert('suggestion', event.suggestion)+'</span></h4>';
-                    detail += '<span id="add_'+i+'"></span><br>'
+                    detail += '<span class="cood">'+event.location+'</span><br>'
                     detail += '<span>影響車道：'+ convert('lane', event.type) +'</span><br>';
                     detail += '<span>時間：'+ moment.unix(event.time).format("YYYY/MM/DD HH:mm:ss") +'</span><br>';
                     detail = '<td>' + detail + '</td>';
@@ -23,16 +23,11 @@ function refreshEvent(uid){
                     else
                         detail += '<td class="col-3"><td>';
 
-
-                    $.getJSON(GOOGLE_MAP_API_KEY + event.location, function( data ) {
-                        if(!data.error_message && data.status == 'OK')
-                            $('#add_'+i).text(data.results[0].formatted_address);  
-                    });
-
                     detail = '<tr>' + detail + '</tr>';
 
                     $('#selfEvent tbody').append(detail);
                 }
+                translateCoordinate()
             }else{
                 $('#selfEmpty').css('display', 'block');
                 $('#selfEvent').css('display', 'none');

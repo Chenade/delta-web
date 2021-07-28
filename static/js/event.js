@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
+    if(checkLogin()) $('#notLogin').css('display', 'none');
+    else $('#isLogin').css('display', 'none');
+
     const _uid = getCookie("username");
-    if(!_uid)
-        $('.isLogin').css('display', 'none');
-    else 
-        $('.notLogin').css('display', 'none');
+    
 
     var eventTable = $('#eventTable').DataTable( {
         responsive: true,

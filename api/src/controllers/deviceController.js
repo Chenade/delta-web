@@ -17,13 +17,13 @@ exports.addDevice = async (req, reply) => {
     if(match == null)  
       return reply.status(403).send({error: 'UUID Format Error!'});
 
-    const exist = await prisma.device.findUnique({
-    where:{
-      AND:[
-        {uuid: _uuid},
-        {del: 0}
-      ]
-    }
+    const exist = await prisma.device.findFirst({
+      where:{
+        AND:[
+          {uuid: _uuid},
+          {del: 0}
+        ]
+      }
     });
     
     if (exist)
@@ -32,6 +32,7 @@ exports.addDevice = async (req, reply) => {
     const _uid = req.body.uid;
     const _licensePlate = req.body.licensePlate;
     const _type = req.body.type;
+    const _ts = Math.floor(Date.now() / 1000);
 
     const device = await prisma.device.create({
       data: {
@@ -41,6 +42,26 @@ exports.addDevice = async (req, reply) => {
           type: _type,
       }
     });
+
+    const car = await prisma.car.findUnique({
+      where:{
+        licensePlate: _licensePlate
+      }
+    });
+
+
+    if(!car){
+      await prisma.car.create({
+        data:{
+          licensePlate: _licensePlate, 
+          memberId: _uid,
+          tag: '',
+          lat: '25.033493',
+          lng: '121.564101',
+          timestamp: _ts
+        }
+      });
+    }
 
     
     reply.status(200).send({});

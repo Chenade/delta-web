@@ -1,7 +1,8 @@
 var object = {
     'licensePlate': '',
     'device': [],
-    'marker':{}
+    'marker':{},
+    thread: {}
 }
 
 var theMarker = {};
@@ -22,6 +23,18 @@ var myIcon = L.icon({
 function onlineDevice(){
     ajax('GET', '/node/gps/'+object.licensePlate, {}, function(a){
         if(!a.error){
+            const _ts = Math.floor(Date.now() / 1000);
+            
+            if(Math.abs(_ts - a.timestamp) > 3){
+                $('#online').css('display', 'none');
+                $('#offline').css('display', 'block');
+                $('#streaming').attr('src','');
+            }else{
+                $('#online').css('display', 'block');
+                $('#offline').css('display', 'none');
+                $('#streaming').attr('src','http://123.local:8080/?action=stream');
+            }
+                
             console.log(a);
             map.setView(new L.LatLng(a.lat, a.lng),20);
 
@@ -32,7 +45,7 @@ function onlineDevice(){
             $('#gps_Lat').text(a.lat);
             $('#gps_Lng').text(a.lng);
             $('#gps_UpdateTime').text(moment.unix(a.timestamp).format('YYYY-MM-DD HH:mm:ss'));
-            setTimeout(() => {  onlineDevice()  }, 5000);
+            object.thread = setTimeout(() => {  onlineDevice()  }, 5000);
         }else
             console.error(a.error)
     });
@@ -80,6 +93,9 @@ $(document).ready(function () {
         $(this).addClass('btn-primary');
         object.device = $(this).data('device').split(',');
         object.licensePlate = $(this).text();
+
+        clearTimeout(object.thread)
+        onlineDevice()
     });
     
 });

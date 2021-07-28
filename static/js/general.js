@@ -1,5 +1,4 @@
 const GOOGLE_MAP_API_KEY = 'https://maps.googleapis.com/maps/api/geocode/json?language=zh-TW&key=AIzaSyD1oMT5EFeOqDmaMdb6YlWacWvyWWH6a-E&latlng=';
-// console.log(GOOGLE_MAP_API_KEY);
 w3.includeHTML();
 
 var clock = setInterval(() => {
@@ -140,9 +139,9 @@ $('input[type=radio][name=addressType]').change(function() {
 function translateCoordinate(){
     $('.cood').each(function() { 
         const obj = $(this), cord = obj.text();
-        $.getJSON(GOOGLE_MAP_API_KEY + cord, function( data ) {
-            if(!data.error_message && data.status == 'OK')
-                obj.text(data.results[0].formatted_address)
-        });
+        // $.getJSON(GOOGLE_MAP_API_KEY + cord, function( data ) {
+        //     if(!data.error_message && data.status == 'OK')
+        //         obj.text(data.results[0].formatted_address)
+        // });
     });
 }
