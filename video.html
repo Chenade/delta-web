@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>APineal Cam</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="static/img/logo.ico">
+    <link rel="stylesheet" href="static/css/main.css" />
+    <link rel="stylesheet" href="assets/jquery/jquery.growl.css" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/datetimepicker/datetimepicker.min.css">
+    
+
+    <style>
+        article{
+            margin-left: 2em;;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="notLogin" w3-include-html="./includes/navbar2.html"></div>
+    <div id="isLogin" w3-include-html="./includes/navbar.html"></div>
+    <main role="main">          
+    
+        <div class="container">
+            <!-- <div class="d-flex justify-content-center flex-wrap w-100"  style="margin: 5em 1em 0 0;">
+                <img class="center-block" width="200" height="200" src="./static/img/logo.png"/>
+                <div class="col-12 col-sm-6" style="padding: 1rem; border-left: solid #bbb 1px; margin: 2em">
+                    <h3>Team Delta</h3><hr>
+                    <h3>APineal Cam</h3>
+                </div>
+            </div> -->
+            <!-- <hr> -->
+            <div class="d-flex justify-content-center flex-wrap w-100"  style="margin: 5em 1em 0 0;">
+                <iframe width="700" height="500" src="https://www.youtube.com/embed/YvuCm0jEjOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+           
+        </div>
+    
+    </main>
+
+    <div w3-include-html="./includes/footer.html"></div>
+    
+    </body>
+
+</html>
+
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/6e81c4c4d4.js" crossorigin="anonymous"></script>
+    <script src="assets/jquery/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/chart.min.js"></script>
+    <script src="assets/jquery/jquery.growl.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/datetimepicker/moment.min.js"></script>
+    <script src="assets/datetimepicker/datetimepicker.min.js"></script>
+    <script src="assets/js/w3.min.js"></script>
+        
+    <script src="./static/js/general.js"></script>
+
+    <script>
+
+        if(checkLogin()) $('#notLogin').css('display', 'none');
+        else $('#isLogin').css('display', 'none');
+
+    </script>
