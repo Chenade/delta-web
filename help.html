@@ -59,19 +59,19 @@
                                             <div class="form-group mb-0">
                                                 <label class="col-form-label">位置訊息:</label>
                                                 <div class="d-flex">
-                                                    <label class="custom-control overflow-checkbox">
-                                                        <input type="radio" class="overflow-control-input" name="addressType" value="address" checked>
+                                                    <label class="custom-control overflow-checkbox"  style="display: none;">
+                                                        <input type="radio" class="overflow-control-input" name="addressType" value="address" >
                                                         <span class="overflow-control-indicator">地址</span>
                                                     </label>
                                                     <label class="custom-control overflow-checkbox">
-                                                        <input type="radio" class="overflow-control-input" name="addressType" value="cord">
+                                                        <input type="radio" class="overflow-control-input" name="addressType" value="cord" checked>
                                                         <span class="overflow-control-indicator">座標</span>
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
     
-                                        <div class="row" id="address" style="padding: 0 0 0 1em;">
+                                        <div class="row" id="address" style="padding: 0 0 0 1em;display: none;">
                                             <!-- <label class="col-form-label">事發地點 :</label> -->
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="place" placeholder="請輸入完整地址">
@@ -81,7 +81,7 @@
                                             </div>
                                         </div>  
     
-                                        <div id="cord" style="display: none;">
+                                        <div id="cord">
                                             <div class="d-flex justify-content-around">
                                                 <input type="text" class="form-control" id="applyLong" placeholder="經度">
                                                 <input type="text" class="form-control" id="applyLat" placeholder="緯度">

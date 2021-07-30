@@ -18,7 +18,7 @@ class General {
     let query = "SELECT * FROM `car` WHERE" + query_lng + "AND" + query_lat;
     const car = await prisma.$queryRaw(query);
     
-    if(car){
+    if(car.length){
       let arr=[];
       let users = '';
       car.forEach(el => { users += '"' + el.memberId + '"';});
