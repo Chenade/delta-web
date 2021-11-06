@@ -21,7 +21,7 @@ $('.form_datetime_pre').datetimepicker({
 
 function checkLogin(){
     const _uid = getCookie("username");
-    // if(!_uid) return false;
+    if(!_uid) return false;
 
     return true;
 }
