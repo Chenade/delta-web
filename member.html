@@ -193,7 +193,7 @@
             </button>
         </div>
         <div class="modal-body d-flex flex-wrap">
-            <div id="step1">
+            <div id="step1" style="display: none;">
                 <div class=" d-flex flex-wrap">
                     <div class="col-12">
                         <label for="link" class="col-form-label">設備UUID: <span style="color: red;">*必填</span></label> <br>
@@ -218,12 +218,15 @@
     
                 </div>
             </div>
+            <div id="qrcode" class="col-12 d-flex justify-content-center align-items-center">
+                <img src="./static/img/demo.png" >
+            </div>
             
         </div>
         <div class="modal-footer">
-            <button class="btn btn-success" id="deviceSubmit">新增</button>
-            <button class="btn btn-success" id="deviceSave">儲存</button>
-            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <!-- <button class="btn btn-success" id="deviceSubmit">新增</button> -->
+            <!-- <button class="btn btn-success" id="deviceSave">儲存</button> -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
         </div>
     </div>
